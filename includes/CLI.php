@@ -20,6 +20,11 @@ class CLI extends WP_CLI_Command {
 	 * @param array $assoc_args Associative arguments specified.
 	 */
 	public static function products( $args, $assoc_args ) {
+		$error = Dependencies::validate_runtime_dependencies();
+		if ( is_wp_error( $error ) ) {
+			WP_CLI::error( $error->get_error_message() );
+		}
+
 		list( $amount ) = $args;
 		$amount = absint( $amount );
 
@@ -79,6 +84,11 @@ class CLI extends WP_CLI_Command {
 	 * @param array $assoc_args Associative arguments specified.
 	 */
 	public static function orders( $args, $assoc_args ) {
+		$error = Dependencies::validate_runtime_dependencies();
+		if ( is_wp_error( $error ) ) {
+			WP_CLI::error( $error->get_error_message() );
+		}
+
 		list( $amount ) = $args;
 		$amount = absint( $amount );
 
@@ -137,6 +147,11 @@ class CLI extends WP_CLI_Command {
 	 * @param array $assoc_args Associative arguments specified.
 	 */
 	public static function customers( $args, $assoc_args ) {
+		$error = Dependencies::validate_runtime_dependencies();
+		if ( is_wp_error( $error ) ) {
+			WP_CLI::error( $error->get_error_message() );
+		}
+
 		list( $amount ) = $args;
 		$amount = absint( $amount );
 
@@ -183,6 +198,11 @@ class CLI extends WP_CLI_Command {
 	 * @param array $assoc_args Associative arguments specified.
 	 */
 	public static function coupons( $args, $assoc_args ) {
+		$error = Dependencies::validate_runtime_dependencies();
+		if ( is_wp_error( $error ) ) {
+			WP_CLI::error( $error->get_error_message() );
+		}
+
 		list( $amount ) = $args;
 		$amount = absint( $amount );
 
@@ -229,6 +249,11 @@ class CLI extends WP_CLI_Command {
 	 * @param array $assoc_args Associative arguments specified.
 	 */
 	public static function bookings( $args, $assoc_args ) {
+		$error = Dependencies::validate_runtime_dependencies();
+		if ( is_wp_error( $error ) ) {
+			WP_CLI::error( $error->get_error_message() );
+		}
+
 		list( $amount ) = $args;
 		$amount         = absint( $amount );
 		$time_start     = microtime( true );
@@ -280,6 +305,11 @@ class CLI extends WP_CLI_Command {
 	 * @param array $assoc_args Associative arguments specified.
 	 */
 	public static function terms( $args, $assoc_args ) {
+		$error = Dependencies::validate_runtime_dependencies();
+		if ( is_wp_error( $error ) ) {
+			WP_CLI::error( $error->get_error_message() );
+		}
+
 		list( $taxonomy, $amount ) = $args;
 		$amount = absint( $amount );
 
