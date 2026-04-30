@@ -62,9 +62,7 @@ function wc_smooth_generator_autoload( $class_name ) {
 	}
 }
 
-if ( ! class_exists( \WC\SmoothGenerator\Plugin::class, false ) ) {
-	wc_smooth_generator_bootstrap_autoloader();
-}
+wc_smooth_generator_bootstrap_autoloader();
 
 /**
  * Fetch instance of plugin.

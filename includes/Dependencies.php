@@ -57,7 +57,7 @@ class Dependencies {
 	 *
 	 * @return string
 	 */
-	public static function get_missing_packages_message(): string {
+	public static function get_missing_packages_error_message(): string {
 		$missing_packages = self::get_missing_packages();
 
 		if ( empty( $missing_packages ) ) {
@@ -84,7 +84,7 @@ class Dependencies {
 
 		return new \WP_Error(
 			'smoothgenerator_missing_dependencies',
-			self::get_missing_packages_message()
+			self::get_missing_packages_error_message()
 		);
 	}
 
