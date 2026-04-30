@@ -29,10 +29,10 @@ function wc_smooth_generator_bootstrap_autoloader() {
 		return;
 	}
 
-	$composer_autoloader = __DIR__ . '/vendor/autoload.php';
+	$composer_autoloader_path = __DIR__ . '/vendor/autoload.php';
 
-	if ( file_exists( $composer_autoloader ) ) {
-		require_once $composer_autoloader;
+	if ( file_exists( $composer_autoloader_path ) ) {
+		require_once $composer_autoloader_path;
 		$autoloaded = true;
 
 		return;

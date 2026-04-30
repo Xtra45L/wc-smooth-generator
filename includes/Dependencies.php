@@ -49,7 +49,7 @@ class Dependencies {
 			}
 		}
 
-		return array_values( array_unique( $missing_packages ) );
+		return array_unique( $missing_packages );
 	}
 
 	/**
