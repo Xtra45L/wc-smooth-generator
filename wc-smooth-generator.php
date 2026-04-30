@@ -19,10 +19,50 @@
 
 defined( 'ABSPATH' ) || exit;
 
-// autoloader.
-if ( ! class_exists( \WC\SmoothGenerator\Plugin::class ) ) {
-	require __DIR__ . '/vendor/autoload.php';
+/**
+ * Load the plugin autoloader.
+ */
+function wc_smooth_generator_bootstrap_autoloader() {
+	static $autoloaded = false;
+
+	if ( $autoloaded ) {
+		return;
+	}
+
+	$composer_autoloader_path = __DIR__ . '/vendor/autoload.php';
+
+	if ( file_exists( $composer_autoloader_path ) ) {
+		require_once $composer_autoloader_path;
+		$autoloaded = true;
+
+		return;
+	}
+
+	spl_autoload_register( 'wc_smooth_generator_autoload' );
+	$autoloaded = true;
 }
+
+/**
+ * Fallback autoloader for plugin classes when Composer artifacts are unavailable.
+ *
+ * @param string $class_name Fully qualified class name.
+ */
+function wc_smooth_generator_autoload( $class_name ) {
+	$namespace = 'WC\\SmoothGenerator\\';
+
+	if ( 0 !== strpos( $class_name, $namespace ) ) {
+		return;
+	}
+
+	$relative_class = substr( $class_name, strlen( $namespace ) );
+	$class_file     = __DIR__ . '/includes/' . str_replace( '\\', '/', $relative_class ) . '.php';
+
+	if ( file_exists( $class_file ) ) {
+		require_once $class_file;
+	}
+}
+
+wc_smooth_generator_bootstrap_autoloader();
 
 /**
  * Fetch instance of plugin.

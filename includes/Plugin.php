@@ -19,6 +19,7 @@ class Plugin {
 	 */
 	public function __construct( $file ) {
 		if ( is_admin() ) {
+			add_action( 'admin_notices', array( Dependencies::class, 'render_missing_packages_notice' ) );
 			Admin\Settings::init();
 		}
 

@@ -44,6 +44,17 @@ class Settings {
 	 */
 	public static function render_admin_page() {
 		$current_job = self::get_current_job();
+		$error       = \WC\SmoothGenerator\Dependencies::validate_runtime_dependencies();
+
+		if ( is_wp_error( $error ) ) {
+			?>
+			<h1>WooCommerce Smooth Generator</h1>
+			<div class="notice notice-error inline" style="margin-left: 0;">
+				<p><?php echo esc_html( $error->get_error_message() ); ?></p>
+			</div>
+			<?php
+			return;
+		}
 
 		$generate_button_atts = $current_job instanceof AsyncJob ? array( 'disabled' => true ) : array();
 		$cancel_button_atts   = ! $current_job instanceof AsyncJob ? array( 'disabled' => true ) : array();
@@ -312,8 +323,12 @@ class Settings {
 	 * Process the generation.
 	 */
 	public static function process_page_submit() {
+		if ( is_wp_error( \WC\SmoothGenerator\Dependencies::validate_runtime_dependencies() ) ) {
+			return;
+		}
+
 		$args = array();
-		
+
 		if ( ! empty( $_POST['use_date_range'] ) ) {
 			$args['date-start'] = sanitize_text_field( $_POST['start_date'] );
 			$args['date-end'] = sanitize_text_field( $_POST['end_date'] );

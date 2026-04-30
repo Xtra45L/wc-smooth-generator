@@ -49,6 +49,12 @@ class Router {
 	 * @return int[]|\WP_Error
 	 */
 	public static function generate_batch( string $generator_slug, int $amount, array $args = array() ) {
+		$error = Dependencies::validate_runtime_dependencies();
+
+		if ( is_wp_error( $error ) ) {
+			return $error;
+		}
+
 		$generator = self::get_generator_class( $generator_slug );
 
 		if ( is_wp_error( $generator ) ) {
