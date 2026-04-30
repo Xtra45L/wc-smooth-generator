@@ -65,7 +65,7 @@ class Dependencies {
 		}
 
 		return sprintf(
-			'WooCommerce Smooth Generator is missing required packaged dependencies (%1$s). '
+			'WooCommerce Smooth Generator is missing required Composer packages (%1$s). '
 			. 'Install the plugin release package that includes /vendor, or run "composer install" '
 			. 'in the plugin directory before using the generator.',
 			implode( ', ', $missing_packages )
